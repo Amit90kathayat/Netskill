@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Student Records</title>
+  <style>
+table, th, td {
+  border: 1px solid;
+}
+  </style>
+</head>
+<body>
+  <table id="student">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Batch No</th>
+        <th>Course Name</th>
+        <th></th>
+      </tr>
+    </thead>
+  </table>
+  <button id="load">Load Data</button>
+  
+  <script>
+    const data = [
+      {
+        "name": "amit",
+        "email": "amit@example.com",
+        "batch_no": 2021,
+        "course_name": "Computer Science"
+      },
+      {
+        "name": "nithin",
+        "email": "nithin@example.com",
+        "batch_no": 2022,
+        "course_name": "Business Administration"
+      },
+      {
+        "name": "khushi",
+        "email": "khushi@example.com",
+        "batch_no": 2021,
+        "course_name": "Electrical"
+      }
+    ];
+
+    const tableBody = document.querySelector('#student');
+    const loadButton = document.querySelector('#load');
+    
+    function deleteRow(event) {
+      const row = event.target.closest('tr');
+      row.remove();
+    }
+    
+    function createTableRow(student) {
+      const row = document.createElement('tr');
+      const nameCell = document.createElement('td');
+      const emailCell = document.createElement('td');
+      const batchNoCell = document.createElement('td');
+      const courseNameCell = document.createElement('td');
+      const deleteCell = document.createElement('td');
+      const deleteButton = document.createElement('button');
+      
+      nameCell.textContent = student.name;
+      emailCell.textContent = student.email;
+      batchNoCell.textContent = student.batch_no;
+      courseNameCell.textContent = student.course_name;
+      deleteButton.textContent = 'X';
+      deleteButton.addEventListener('click', deleteRow);
+      
+      deleteCell.appendChild(deleteButton);
+      
+      row.appendChild(nameCell);
+      row.appendChild(emailCell);
+      row.appendChild(batchNoCell);
+      row.appendChild(courseNameCell);
+      row.appendChild(deleteCell);
+      
+      return row;
+    }
+    
+    function loadData() {
+      data.forEach((student) => {
+        const row = createTableRow(student);
+        tableBody.appendChild(row);
+      });
+    }
+    
+    loadButton.addEventListener('click', loadData);
+  </script>
+</body>
+</html>
